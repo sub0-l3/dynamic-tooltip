@@ -1,8 +1,41 @@
+function init() {
+  contentEl = document.getElementById("storyReader");
+  if (!contentEl.classList.contains("is-spanified")) {
+    contentEl.classList.add("is-spanified");
+    setTimeout(() => getLeafNodes(contentEl), 1000);
+  }
+}
+
+function getLeafNodes(node) {
+  if (!node.hasChildNodes()) {
+    // nodeType 3 indicates Text node
+    if (node.nodeType === 3 && node.wholeText.trim() !== "") {
+      let text = node.wholeText;
+      let newNode = document.createElement("span");
+      newNode.innerHTML = wrapWords(text);
+      let parentNode = node.parentNode;
+      // Bail out if already comment is attached
+      if (parentNode.classList.contains("has_comments")) {
+        return;
+      }
+      parentNode.insertBefore(newNode, node);
+      parentNode.removeChild(node);
+    }
+    return;
+  } else {
+    node.childNodes.forEach(childNode => getLeafNodes(childNode));
+  }
+}
+
+function wrapWords(str) {
+  return str.replace(/(\S+\s*)/g, "<span>$&</span>");
+}
+
 function insertBreakAtPoint(e) {
   e.preventDefault();
-  var range;
-  var textNode;
-  var offset;
+  let range;
+  let textNode;
+  let offset;
 
   if (document.caretPositionFromPoint) {
     // standard
@@ -20,4 +53,11 @@ function insertBreakAtPoint(e) {
   console.log(range);
   console.log(textNode);
   console.log(offset);
+  textNode.parentElement.classList.add("tooltip");
+
+  let para = document.createElement("span");
+  let node = document.createTextNode("This is new. ");
+  para.appendChild(node);
+  para.className = "tooltiptext"
+  textNode.parentElement.appendChild(para);
 }
