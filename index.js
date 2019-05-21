@@ -50,13 +50,13 @@ function insertBreakAtPoint(e) {
   }
 
   // do whatever you want here!
-  console.log(range);
-  console.log(textNode);
-  console.log(offset);
+  // console.log(range);
+  // console.log(textNode);
+  // console.log(offset);
   textNode.parentElement.classList.add("tooltip");
 
   let para = document.createElement("span");
-  let node = document.createTextNode("This is new. ");
+  let node = document.createTextNode(`--------------${textNode.textContent}-------------Tony Montana and his close friend Manny, build a strong drug empire in Miami. However as his power begins to grow, so does his ego and his enemies, and his own paranoia begins to plague his empire...`);
   para.appendChild(node);
   para.className = "tooltiptext"
   textNode.parentElement.appendChild(para);

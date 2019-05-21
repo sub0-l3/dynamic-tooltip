@@ -10,15 +10,15 @@
 
 .tooltip {
   position: relative;
-  display: inline-block;
+  /* display: inline-block; */
   border-bottom: 1px dotted black;
 }
 
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
+  width: 200px;
+  background-color: #fff;
+  color: black;
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
@@ -27,6 +27,7 @@
   bottom: 150%;
   left: 50%;
   margin-left: -60px;
+  border: 1px solid grey;
 }
 
 .tooltip .tooltiptext::after {
