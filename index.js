@@ -60,4 +60,11 @@ function insertBreakAtPoint(e) {
   para.appendChild(node);
   para.className = "tooltiptext"
   textNode.parentElement.appendChild(para);
+
+  // coordinates of span element
+  let coordXYContainer = document.getElementById("storyReader").getBoundingClientRect()
+  let coordXY = textNode.parentElement.getBoundingClientRect()
+  document.getElementById('coordinates').innerHTML = `Top: ${coordXY.top}, Left: ${coordXY.left}` // coordinates is id in HTML doc
+  document.getElementById('coordinates-container').innerHTML = `Top: ${coordXY.top - coordXYContainer.top}, Left: ${coordXY.left - coordXYContainer.left}` // 
+  
 }

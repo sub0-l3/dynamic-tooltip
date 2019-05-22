@@ -1,11 +1,21 @@
+#coordinates {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+#coordinates-container {
+  text-align: center;
+  margin-top: 1rem;
+}
+
 .container {
-  margin: 10rem;
+  margin: 5rem;
   padding: 1rem;
   border: 3px solid grey;
 }
 
 #heavy-duty-iframe {
-    background-color: antiquewhite;
+  background-color: antiquewhite;
 }
 
 .tooltip {
