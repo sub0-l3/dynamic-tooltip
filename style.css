@@ -34,9 +34,8 @@
   padding: 5px 0;
   position: absolute;
   z-index: 1;
-  bottom: 150%;
-  left: 50%;
-  margin-left: -60px;
+  /* left: 50%; */
+  /* margin-left: -60px; */
   border: 1px solid grey;
 }
 
@@ -47,10 +46,28 @@
   left: 50%;
   margin-left: -5px;
   border-width: 5px;
-  border-style: solid;
-  border-color: black transparent transparent transparent;
+  /* below border properties for showing arrow */
+  /* border-style: solid;
+  border-color: black transparent transparent transparent; */
 }
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
+}
+
+.show-on-top {
+  bottom: 150%;
+  margin-left: -100px; /* -(width of modal + width of tooltip element) / 2 */
+}
+
+.show-on-right {
+  transform: translateY(-50%);
+}
+
+.show-on-left {
+  transform: translateX(-150%);
+}
+
+.show-on-bottom {
+  
 }
