@@ -36,6 +36,7 @@ function insertBreakAtPoint(e) {
   let range;
   let textNode;
   let offset;
+  console.log("X: ", e.pageX, "Y: ", e.pageY);
 
   if (document.caretPositionFromPoint) {
     // standard
@@ -56,27 +57,43 @@ function insertBreakAtPoint(e) {
   textNode.parentElement.classList.add("tooltip");
 
   let para = document.createElement("span");
-  let node = document.createTextNode(`--------------${textNode.textContent}-------------Tony Montana and his close friend Manny, build a strong drug empire in Miami. However as his power begins to grow, so does his ego and his enemies, and his own paranoia begins to plague his empire...`);
+  let node = document.createTextNode(
+    `--------------${
+      textNode.textContent
+    }-------------Tony Montana and his close friend Manny, build a strong drug empire in Miami. However as his power begins to grow, so does his ego and his enemies, and his own paranoia begins to plague his empire...`
+  );
   para.appendChild(node);
-  para.className = "tooltiptext"
+  para.className = "tooltiptext";
   textNode.parentElement.appendChild(para);
 
   // coordinates of span element
-  let coordXYContainer = document.getElementById("storyReader").getBoundingClientRect()
-  let coordXY = textNode.parentElement.getBoundingClientRect()
-  document.getElementById('coordinates').innerHTML = `Top: ${coordXY.top}, Left: ${coordXY.left}, Bottom: ${coordXY.bottom}, Right: ${coordXY.right}` // coordinates is id in HTML doc
-  document.getElementById('coordinates-container').innerHTML = `Top: ${coordXY.top - coordXYContainer.top}, Left: ${coordXY.left - coordXYContainer.left}, Bottom: ${coordXYContainer.bottom - coordXY.bottom}, Right: ${coordXYContainer.right - coordXY.right}`
+  let coordXYContainer = document
+    .getElementById("storyReader")
+    .getBoundingClientRect();
+  let coordXY = textNode.parentElement.getBoundingClientRect();
+  document.getElementById("coordinates").innerHTML = `Top: ${
+    coordXY.top
+  }, Left: ${coordXY.left}, Bottom: ${coordXY.bottom}, Right: ${coordXY.right}`; // coordinates is id in HTML doc
+  document.getElementById(
+    "coordinates-container"
+  ).innerHTML = `Top: ${coordXY.top -
+    coordXYContainer.top}, Left: ${coordXY.left -
+    coordXYContainer.left}, Bottom: ${coordXYContainer.bottom -
+    coordXY.bottom}, Right: ${coordXYContainer.right - coordXY.right}`;
   let spaceObj = {
     top: coordXY.top - coordXYContainer.top,
     left: coordXY.left - coordXYContainer.left,
     bottom: coordXYContainer.bottom - coordXY.bottom,
     right: coordXYContainer.right - coordXY.right
-  }
-  const maxSpace = Math.max( ...Object.values(spaceObj));
-  let maxProp = Object.entries(spaceObj).filter(e => e[1] === maxSpace)[0]
+  };
+  const maxSpace = Math.max(...Object.values(spaceObj));
+  let maxProp = Object.entries(spaceObj).filter(e => e[1] === maxSpace)[0];
   // console.log(maxSpace)
   //TODO: width and height of textNode (coordXY) to be taken into consideration
-   textNode.nextElementSibling.classList.add(`show-on-${maxProp[0]}`);
 
-
+  let popup = textNode.nextElementSibling;
+  popup.classList.add(`show-on-${maxProp[0]}`);
+  // if (maxProp[0] == "left") {
+  //   popup.setAttribute("style", "color: green;");
+  // }
 }

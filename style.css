@@ -9,7 +9,7 @@
 }
 
 .container {
-  margin: 5rem;
+  margin: 5rem 20rem;
   padding: 1rem;
   border: 3px solid grey;
 }
@@ -40,12 +40,12 @@
 }
 
 .tooltip .tooltiptext::after {
-  content: "";
+  /* content: "";
   position: absolute;
   top: 100%;
   left: 50%;
   margin-left: -5px;
-  border-width: 5px;
+  border-width: 5px; */
   /* below border properties for showing arrow */
   /* border-style: solid;
   border-color: black transparent transparent transparent; */
@@ -56,8 +56,9 @@
 }
 
 .show-on-top {
-  bottom: 150%;
-  margin-left: -100px; /* -(width of modal + width of tooltip element) / 2 */
+  bottom: 100%;
+  margin-left: -50%; /* -(width of modal + width of tooltip element) / 2 */
+  transform: translateX(-50%);
 }
 
 .show-on-right {
@@ -65,9 +66,12 @@
 }
 
 .show-on-left {
-  transform: translateX(-150%);
+  transform: translate(-100%, -50%);
+  margin-left: -100%;
 }
 
 .show-on-bottom {
-  
+  top: 100%;
+  transform: translateX(-50%);
+  margin-left: -50%;
 }
