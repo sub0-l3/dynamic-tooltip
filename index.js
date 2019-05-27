@@ -1,3 +1,8 @@
+const toolTipDimensions = {
+  width: 200,
+  height: 150
+};
+
 function init() {
   contentEl = document.getElementById("storyReader");
   if (!contentEl.classList.contains("is-spanified")) {
@@ -40,30 +45,34 @@ document.addEventListener(
     var target = e.target || e.srcElement,
       textNode = target.firstChild;
     e.preventDefault();
+
     if (
       !(target.nodeType === 1 && target.nodeName === "SPAN") ||
-      target.classList.contains("tooltip") ||
+      target.classList.contains("has-tooltip") ||
       !(textNode.nodeType === 3)
     )
       return;
 
-    textNode.parentElement.classList.add("tooltip");
+    if (document.querySelector(".has-tooltip"))
+      document.querySelector(".has-tooltip").classList.remove("has-tooltip");
 
-    let para = document.createElement("span");
-    let node = document.createTextNode(
-      `--------------${
-        textNode.textContent
-      }-------------Tony Montana and his close friend Manny, build a strong drug empire in Miami. However as his power begins to grow, so does his ego and his enemies, and his own paranoia begins to plague his empire...`
-    );
-    para.appendChild(node);
-    para.className = "tooltiptext";
-    textNode.parentElement.appendChild(para);
+    textNode.parentElement.classList.add("has-tooltip");
+
+    let toolTipText = `${
+      textNode.textContent
+    }: Tony Montana and his close friend Manny, build a strong drug empire in Miami. However as his power begins to grow, so does his ego and his enemies...`;
+    let toolTipElement = document.getElementById("tool-tip");
+    toolTipElement.innerHTML = toolTipText;
+    toolTipElement.style.width = `${toolTipDimensions.width}px`;
+    toolTipElement.style.height = `${toolTipDimensions.height}px`;
+    toolTipElement.style.display = "block";
 
     // coordinates of span element
     let coordXYContainer = document
       .getElementById("storyReader")
       .getBoundingClientRect();
     let coordXY = textNode.parentElement.getBoundingClientRect();
+
     document.getElementById("coordinates").innerHTML = `Top: ${
       coordXY.top
     }, Left: ${coordXY.left}, Bottom: ${coordXY.bottom}, Right: ${
@@ -75,22 +84,27 @@ document.addEventListener(
       coordXYContainer.top}, Left: ${coordXY.left -
       coordXYContainer.left}, Bottom: ${coordXYContainer.bottom -
       coordXY.bottom}, Right: ${coordXYContainer.right - coordXY.right}`;
-    let spaceObj = {
-      top: coordXY.top - coordXYContainer.top,
-      left: coordXY.left - coordXYContainer.left,
-      bottom: coordXYContainer.bottom - coordXY.bottom,
-      right: coordXYContainer.right - coordXY.right
-    };
-    const maxSpace = Math.max(...Object.values(spaceObj));
-    let maxProp = Object.entries(spaceObj).filter(e => e[1] === maxSpace)[0];
-    // console.log(maxSpace)
-    //TODO: width and height of textNode (coordXY) to be taken into consideration
 
-    let popup = textNode.nextElementSibling;
-    popup.classList.add(`show-on-${maxProp[0]}`);
-    // if (maxProp[0] == "left") {
-    //   popup.setAttribute("style", "color: green;");
-    // }
+    let spaceObj = {
+      left: coordXY.left - coordXYContainer.left,
+      right: coordXYContainer.right - coordXY.right,
+      top: coordXY.top - coordXYContainer.top,
+      bottom: coordXYContainer.bottom - coordXY.bottom
+    };
+
+    if (spaceObj.left >= spaceObj.right) {
+      toolTipElement.style.left = `${spaceObj.left -
+        (toolTipDimensions.width + coordXY.width)}px`;
+    } else {
+      toolTipElement.style.left = `${spaceObj.left + coordXY.width}px`;
+    }
+
+    if (spaceObj.top >= spaceObj.bottom) {
+      toolTipElement.style.top = `${spaceObj.top -
+        (toolTipDimensions.height + coordXY.height)}px`;
+    } else {
+      toolTipElement.style.top = `${spaceObj.top + coordXY.height}px`;
+    }
   },
   false
 );

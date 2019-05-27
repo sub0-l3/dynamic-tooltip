@@ -12,66 +12,18 @@
   margin: 5rem 20rem;
   padding: 1rem;
   border: 3px solid grey;
-}
-
-#heavy-duty-iframe {
-  background-color: antiquewhite;
-}
-
-.tooltip {
   position: relative;
-  /* display: inline-block; */
-  border-bottom: 1px dotted black;
 }
 
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 200px;
-  background-color: #fff;
-  color: black;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
+#tool-tip {
+  display: none;
   position: absolute;
-  z-index: 1;
-  /* left: 50%; */
-  /* margin-left: -60px; */
-  border: 1px solid grey;
+  background-color: antiquewhite;
+  /* overflow-y: scroll; */
+  padding: 10px;
 }
 
-.tooltip .tooltiptext::after {
-  /* content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px; */
-  /* below border properties for showing arrow */
-  /* border-style: solid;
-  border-color: black transparent transparent transparent; */
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-}
-
-.show-on-top {
-  bottom: 100%;
-  margin-left: -50%; /* -(width of modal + width of tooltip element) / 2 */
-  transform: translateX(-50%);
-}
-
-.show-on-right {
-  transform: translateY(-50%);
-}
-
-.show-on-left {
-  transform: translate(-100%, -50%);
-  margin-left: -100%;
-}
-
-.show-on-bottom {
-  top: 100%;
-  transform: translateX(-50%);
-  margin-left: -50%;
+.has-tooltip {
+  background-color: #342f2f;
+  color: white;
 }
