@@ -87,23 +87,38 @@ document.addEventListener(
 
     let spaceObj = {
       left: coordXY.left - coordXYContainer.left,
-      right: coordXYContainer.right - coordXY.right,
+      right: coordXYContainer.right - coordXY.left,
       top: coordXY.top - coordXYContainer.top,
-      bottom: coordXYContainer.bottom - coordXY.bottom
+      bottom: coordXYContainer.bottom - coordXY.top
     };
 
+    let overflowAdjustment = 0;
+    let clickedElementWidth = coordXY.right - coordXY.left;
+    let clickedElementHeight = coordXY.bottom - coordXY.top;
+    let log = console.log
+    log(clickedElementWidth,'->',clickedElementHeight)
+
     if (spaceObj.left >= spaceObj.right) {
+      if (toolTipDimensions.width > spaceObj.left) {
+        overflowAdjustment = toolTipDimensions.height - spaceObj.bottom;
+      }
       toolTipElement.style.left = `${spaceObj.left -
-        (toolTipDimensions.width + coordXY.width)}px`;
+        toolTipDimensions.width + overflowAdjustment - clickedElementWidth }px`;
     } else {
-      toolTipElement.style.left = `${spaceObj.left + coordXY.width}px`;
+      toolTipElement.style.left = `${spaceObj.left + clickedElementWidth}px`;
     }
 
     if (spaceObj.top >= spaceObj.bottom) {
+      if (toolTipDimensions.height > spaceObj.top) {
+        overflowAdjustment = toolTipDimensions.height - spaceObj.top;
+      }
       toolTipElement.style.top = `${spaceObj.top -
-        (toolTipDimensions.height + coordXY.height)}px`;
+        (toolTipDimensions.height) + overflowAdjustment}px`;
     } else {
-      toolTipElement.style.top = `${spaceObj.top + coordXY.height}px`;
+      if (toolTipDimensions.height > spaceObj.bottom) {
+        overflowAdjustment = toolTipDimensions.height - spaceObj.bottom;
+      }
+      toolTipElement.style.top = `${spaceObj.top - clickedElementHeight - overflowAdjustment}px`;
     }
   },
   false
