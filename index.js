@@ -1,6 +1,6 @@
 const toolTipDimensions = {
-  width: 200,
-  height: 150
+  width: 243,
+  height: 236
 };
 
 function init() {
